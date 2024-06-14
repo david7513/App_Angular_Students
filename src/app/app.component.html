@@ -1,0 +1,78 @@
+<style>
+  .container {
+    display: flex;
+    gap: 10px; /* Réduire le gap */
+  }
+  body {
+    display: flex;
+    justify-content: space-between; /* Espacer les éléments */
+    align-items: center; /* Aligner verticalement au centre */
+    height: 100vh; /* Prendre toute la hauteur de la vue */
+    margin: 0;
+    padding: 0 20px; /* Ajouter un peu de padding pour éviter que les éléments ne touchent les bords */
+  }
+  .form-container {
+    flex: 1;
+    margin-right: 20px; /* Espace entre le formulaire et l'image */
+  }
+  .item {
+    background-color: firebrick;
+    padding: 10px;
+    margin-top: 50px;
+  }
+  .image-container img {
+    max-width: 50%;
+    margin-left: 700px;
+    height: auto;
+  }
+  .update {
+    padding: 10px;
+    margin-top: 50px;
+  }
+  .update2{
+    padding-left: 22px;
+  }
+  .update3 {
+    margin-top: 10px;
+    padding-left: 9px;
+  } 
+</style>
+<h1>Student management</h1>
+<h3>List of students :</h3>
+  <ul>
+    <li *ngFor="let item of items">Id: {{ item.id }}; Prénom: {{ item.name }}; Age: {{ item.age }} ans; Note: {{ item.grade }} 
+      <button (click)="update(item)">Update</button> </li>
+  </ul>
+<h2>Create student</h2>
+<div class="form-container">
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+  <label for="name">Name:</label>
+  <input id="name" formControlName="name">
+  <label for="age">Age:</label>
+  <input id="age" formControlName="age">
+  <label for="grade">Grade:</label>
+  <input id="grade" formControlName="grade">
+  <button type="submit" [disabled]="itemForm.invalid">Create</button>
+</form>
+</div>
+<div class="container">
+<div class="item" *ngFor="let item of items">
+  <div>{{ item.name }}</div>
+  <button (click)="deleteItem(item.id)">Delete</button>
+  </div>
+</div>
+<div *ngIf="selectedItem">
+  <h2>Update Student</h2>
+  <form [formGroup]="updateForm" (ngSubmit)="updateItem()">
+    <label for="editName">Name:</label>
+    <input id="editName" formControlName="name">
+    <label for="editAge">Age:</label>
+    <input id="editAge" formControlName="age">
+    <label for="editGrade">Grade:</label>
+    <input id="editGrade" formControlName="grade">
+    <button type="submit" [disabled]="updateForm.invalid">Update</button>
+  </form>
+</div>
+<div class="image-container">
+  <img src="https://media.lesechos.com/api/v1/images/view/5e394ed3d286c214a25eff75/1280x720/0602692345984-web-tete.jpg" alt="Description of image">
+</div>
